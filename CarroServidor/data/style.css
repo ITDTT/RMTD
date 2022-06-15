@@ -1,0 +1,130 @@
+/*
+Archivo responsable del estilo de la pagina web
+*/
+
+html {
+  font-family: Arial;
+  display: inline-block;
+  text-align: center;
+}
+p {
+  font-size: 1.2rem;  
+}
+body {
+  margin: 0;
+  /*background-image:url(auto.PNG); */
+}
+.topnav {
+  overflow: hidden;
+  background-color: #003366;
+  color: white;
+  font-size: 1.2rem;  
+}
+.content {
+  padding: 25px;
+}
+.card {
+  background-color: white;
+  border: 1px solid;
+  padding: 20px;
+  box-shadow: 5px 10px #888888;
+}
+.card-title {
+  color:#003366;
+  font-weight: bolder;
+}
+.cards {
+  max-width: 1000px;
+  padding: 1px;
+  margin: 0 auto;
+  display: grid; grid-gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 3fr));
+}
+.reading {
+  font-size: 1.2rem;
+}
+.reading1 {
+  font-size: 150%;
+  color:#1900ff;
+  font-weight: bolder;
+  /*background-color: rgb(35, 10, 255);
+  border-radius: 12px;
+  padding: 5px; */
+}
+.boton{
+  background-color: white; 
+  color: black; 
+  border: 2px solid #4CAF50;
+}
+#Blanco, #Gris, #Negro{
+  border: solid;
+  color: #FEFCFB;
+  background-color: #0d6b0d;
+  padding-top: 4px;
+  text-align: center;
+  display: inline-block;
+  font-size: 14px; width: 150px;
+  border-radius: 10px;
+  transition-duration: 0.4s;
+  cursor: pointer;  
+}
+
+#ResetCalibracion{
+  border: solid;
+  color: #FEFCFB;
+  background-color: #668818;
+  padding-top: 4px;
+  text-align: center;
+  display: inline-block;
+  font-size: 14px; width: 150px;
+  border-radius: 10px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+#Comenzar, #Guardar, #Escena1, #Escena2, #Escena3, #Escena4{
+  border: solid;
+  color: #FEFCFB;
+  background-color: #003366;
+  padding-top: 4px;
+  text-align: center;
+  display: inline-block;
+  font-size: 14px; width: 150px;
+  border-radius: 10px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+#Detener{
+	border: solid;
+    color: #FEFCFB;
+    background-color: #cc6520;
+    padding-top: 4px;
+    text-align: center;
+    display: inline-block;
+    font-size: 14px; width: 150px;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+#BorrarB,#BorrarG,#BorrarN{
+	border: solid;
+    color: #FEFCFB;
+    background-color: #005b85;
+    padding-top: 4px;
+    text-align: center;
+    display: inline-block;
+    font-size: 14px; width: 150px;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.table, td{
+  border: 0px solid rgb(255, 255, 255);
+}
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.td {
+  text-align: left; /*center; */
+}

@@ -1,0 +1,281 @@
+
+<!DOCTYPE HTML><html>
+<head>
+  <title>Carro Diferencial</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="icon" href="data:,">
+  <!--<link rel="shortcut icon" href="coche.png"> -->
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/107/three.min.js"></script>
+  <style>
+    table{
+      border: 0.5px solid black;
+    }
+    
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td {
+      text-align: center;
+    }
+    </style>
+</head>
+<body>
+  <!--<body background="Fondo2.png"></body> -->
+  <div class="topnav">
+    <h1><i class=""></i> &#9936 Carro Diferencial &#9936 <i class=""></i></h1>
+  </div>  
+  <div class="content">  
+    <div class="cards"> <!-- Cada cuadro corresponde a un contenedor-->
+      <div class="card">  
+        <p class="card-title">Instrucciones</p>     
+        <p style="text-align:left;">Calibrar cada robot. Después de calibrar un color se debe presionar "Reset valores" para volver a calibrar el siguiente color. <br>
+        <p style="text-align:left;">Escena 1: Un agente realiza un mapeo de un escenario de 3x3. <br>
+        <p style="text-align:left;">Escena 2: Un agente busca el blanco en un escenario de 3x3. <br>
+        <p style="text-align:left;">Escena 3: Dos agentes realizan el mapeo de un escenario de 4x4. <br>
+        <p style="text-align:left;">Escena 4: Dos agentes se comunican entre si para buscar un blanco en un escenario de 4x4</p>                       
+      </div>          
+    </div>
+  </div> <!-- Fin content de robot 1 y 2-->
+
+  <div class="content"> 
+    <div class="cards">
+  	  <div class="card" >              
+        <p class="card-title">Calibración</p>
+          <button id="Blanco"onclick="botonPosition(this)">Blanco</button>
+          <button id="Gris" onclick="botonPosition(this)">Gris</button>
+          <button id="Negro" onclick="botonPosition(this)">Negro</button>
+          <button id="ResetCalibracion" onclick="botonPosition(this)">Reset valores</button> 
+         <!-- <p><span class="reading">Frotal Blanco: <span id="BlancoMaxF"></span> Tras. Blanco: <span id="BlancoMaxT"></span></p>
+          <p><span class="reading">Frotal Gris: <span id="GrisMinF"></span> Tras. Gris: <span id="GrisMinT"></span></p>
+          <p><span class="reading">Frotal Gris: <span id="GrisMaxF"></span> Tras. Gris: <span id="GrisMaxT"></span></p>
+          <p><span class="reading">Frotal Negro: <span id="NegroMinF"></span> Tras. Negro: <span id="NegroMinT"></span></p> -->
+          <table>
+            <tr>          
+              <th>       </th>          
+              <th>Frontal</th>          
+              <th>Tras.  </th>          
+            </tr>          
+            <tr>          
+              <td>Blanco</td>          
+              <td>Max: <span id="BlancoMaxF"></span> </td>          
+              <td>Max: <span id="BlancoMaxT"></span> </td> 
+              <td><button id="BorrarB"onclick="botonPosition(this)">Borrar</button></td>         
+            </tr>            
+            <tr>          
+              <td>Gris</td>          
+              <td>Min: <span id="GrisMinF"></span> </td>          
+              <td>Min: <span id="GrisMinT"></span> </td>          
+            </tr>            
+            <tr>          
+              <td>     </td>          
+              <td>Max:<span id="GrisMaxF"></span> </td>          
+              <td>Max:<span id="GrisMaxT"></span> </td> 
+              <td><button id="BorrarG"onclick="botonPosition(this)">Borrar</button></td>         
+            </tr>          
+            <tr>          
+              <td>Negro</td>          
+              <td>Min:<span id="NegroMinF"></span> </td>          
+              <td>Min:<span id="NegroMinT"></span> </td>          
+              <td><button id="BorrarN"onclick="botonPosition(this)">Borrar</button></td>
+            </tr>          
+          </table>
+        </div> 
+    </div>    
+  </div>
+  <div class="content"> 
+  	<div class="cards">       
+      <div class="card" >              
+        <p class="card-title">Robot 1</p>                  
+        <p><span class="reading"><span id="Dato_charR2"></span></span></p> 
+        <p><span class="reading">Sensor Distancia: <span id="Dato_intR2"></span> mm</span></p>
+        <!-- <p><span class="reading">ContNOW: <span id="Dato_floatR2"></span></span></p> -->
+        <!-- <p><span class="reading">Contador R1: <span id="Dato_boolR2"></span></span></p> -->
+        <p><span class="reading">Color: <span id="ColorFrontR2"></span> - <span id="ColorTrasR2"></span></p>
+        <p><span class="reading">Estado de envío a R2: <span id="varR2"></span></span></p> 
+        <p><span class="reading1"><span id="EncontradoR2"></span></span></p> 
+      </div>
+      <div class="card">
+        <p class="card-title">Robot 2</p>
+        <p><span class="reading"><span id="Dato_char"></span></span></p> 
+        <p><span class="reading">Sensor Distancia: <span id="Dato_int"></span> mm</span></p>  
+        <!-- <p><span class="reading">ContNOW: <span id="Dato_float"></span></span></p> -->
+        <!-- <p><span class="reading">Contador R2: <span id="Dato_bool"></span></span></p> -->
+        <p><span class="reading">Color: <span id="ColorFront"></span> - <span id="ColorTras"></span> </span></p>
+        <p><span class="reading">Estado de envío a R1: <span id="var"></span></span></p> 
+        <p><span class="reading1"><span id="Encontrado"></span>  <span id="Encontrado2"></span> </span></p>      
+      </div><!-- fin robot 2--> 
+    </div>
+  </div>
+  <div class="content">  
+    <div class="cards"> <!-- Cada cuadro corresponde a un contenedor-->
+      <div class="card">      
+          <p class="card-title">Ejecutar</p>  
+          <button id="Escena1" onclick="botonPosition(this)">Escena 1</button> 
+          <button id="Escena2" onclick="botonPosition(this)">Escena 2</button>
+          <button id="Escena3" onclick="botonPosition(this)">Escena 3</button> 
+          <button id="Escena4" onclick="botonPosition(this)">Escena 4</button>
+          <button id="Detener" onclick="botonPosition(this)">Detener</button>
+          <!-- <button id="Reiniciar" onclick="botonPosition(this)">Reiniciar</button> -->                     
+      </div>          
+    </div>
+  </div> <!-- Fin content de robot 1 y 2-->
+  <div class="content">
+    <div class="cards"> <div class="card">
+      <p class="card-title">Posición Colores</p>
+      <table>
+        <tr>
+          <td> 4 </td>
+          <td><span id="a4f"></span> - <span id="a4t"></span></td>
+          <td><span id="b4f"></span> - <span id="b4t"></span></td>
+          <td><span id="c4f"></span> - <span id="c4t"></span></td>
+          <td><span id="d4f"></span> - <span id="d4t"></span></td>
+        </tr>  
+        <tr>
+          <td> 3 </td>
+          <td><span id="a3f"></span> - <span id="a3t"></span></td>
+          <td><span id="b3f"></span> - <span id="b3t"></span></td>
+          <td><span id="c3f"></span> - <span id="c3t"></span></td>
+          <td><span id="d3f"></span> - <span id="d3t"></span></td>
+        </tr>
+        <tr>
+          <td> 2 </td>
+          <td><span id="a2f"></span> - <span id="a2t"></span></td>
+          <td><span id="b2f"></span> - <span id="b2t"></span></td>
+          <td><span id="c2f"></span> - <span id="c2t"></span></td>
+          <td><span id="d2f"></span> - <span id="d2t"></span></td>
+        </tr>
+        <tr>
+          <td> 1 </td>
+          <td><span id="a1f"></span> - <span id="a1t"></span></td>
+          <td><span id="b1f"></span> - <span id="b1t"></span></td>
+          <td><span id="c1f"></span> - <span id="c1t"></span></td>
+          <td><span id="d1f"></span> - <span id="d1t"></span></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>      A      </td>
+          <td>      B      </td>
+          <td>      C      </td>
+          <td>      D      </td>
+        </tr>
+      </table>   
+    </div> <!--- Fin -->
+    </div>
+  </div>
+  <script src="script.js"></script> <!-- Hacemos referencia del archivo de JavaScript -->
+</body>
+</html>
+
+<!--
+  <body>
+  <div class="topnav">
+    <h1><i class=""></i> &#9936 Carro Diferencial &#9936 <i class=""></i></h1>
+    Escena 1: Un agente busca el blanco por un escenario de 3x3.
+    Escena 2: Un agente realiza un mapeo del escenario de 3x3.
+    Escena 3: Un agente realiza el mapeo de un escenario de 4x4.
+    Escena 4: Dos agentes se comunican entre si para buscar un blanco.
+  </div>
+  <div class="content"> 
+    <div class="cards">
+      <div class="card">
+        <p class="card-title">Calibracion</p>
+        <button class="boton"id="Blanco"onclick="botonPosition(this)">Blanco</button>
+        <button id="Gris" onclick="botonPosition(this)">Gris</button>
+        <button id="Negro" onclick="botonPosition(this)">Negro</button>
+        <button id="ResetCalibracion" onclick="botonPosition(this)">Reset valores</button>        
+      </div>
+      <div class="card" >        
+        <p class="card-title">Ejecutar</p>
+         <button id="Guardar" onclick="botonPosition(this)">Guardar y  comenzar</button> 
+         <button id="Comenzar" onclick="botonPosition(this)">Comenzar</button>  --    
+        <button id="ResetCalibracion" onclick="botonPosition(this)">Guardar</button>
+        <button id="Detener" onclick="botonPosition(this)">Detener</button>  
+        <button id="Escena1" onclick="botonPosition(this)">Escena 1</button> 
+        <button id="Escena2" onclick="botonPosition(this)">Escena 2</button>         
+      </div>
+    </div>
+  </div>
+  <div class="content">  
+    <div class="cards"> 
+      <div class="card"> 
+        <p class="card-title">Robot 1</p>
+        <p><span class="reading">Emisor: <span id="Dato_char"></span></span></p> 
+         <p><span class="reading">Aleatorio: <span id="Dato_int"></span></span></p>  
+        <p><span class="reading">Distancia: <span id="Dato_float"></span></span></p> 
+         <p><span class="reading">Booleano: <span id="Dato_bool"></span></span></p> 
+        <p><span class="reading">Color Frontal: <span id="ColorFront"></span> - <span id="ColorTras"></span></p>
+         <p><span class="reading">Color Trasero: <span id="ColorTras"></span></span></p>  
+        <p><span class="reading">Estado: <span id="var"></span></span></p>         
+      </div>
+      <div class="card">
+        <p class="card-title">Robot 2</p>
+        <p><span class="reading">Emisor: <span id="Dato_charR2"></span></span></p> 
+        <p><span class="reading">Sensor Distancia: <span id="Dato_intR2"></span> mm</span></p>  
+        <p><span class="reading">Distancia: <span id="Dato_floatR2"></span></span></p>
+        <p><span class="reading">Booleano: <span id="Dato_boolR2"></span></span></p>
+        <p><span class="reading">Color: <span id="ColorFrontR2"></span> - <span id="ColorTrasR2"></span> </span></p>   
+         <p><span class="reading">Color Trasero: <span id="ColorTrasR2"></span></span></p>
+        <p><span class="reading">Estado: <span id="varR2"></span></span></p>        
+      </div>fin robot 2    
+    </div>
+  </div> Fin content de robot 1 y 2
+  <div class="content">
+    <div class="cards"> <div class="card">
+      <p class="card-title">Posicion Colores</p>
+      <p><span class="reading">A1: <span id="a1f"></span> - <span id="a1t"></span> </span></p> 
+      <p><span class="reading">A2: <span id="a2f"></span> - <span id="a2t"></span> </span></p> 
+      <p><span class="reading">A3: <span id="a3f"></span> - <span id="a3t"></span> </span></p>
+      <p><span class="reading">B1: <span id="b1f"></span> - <span id="b1t"></span> </span></p>
+      <p><span class="reading">B2: <span id="b2f"></span> - <span id="b2t"></span> </span></p>  
+      <p><span class="reading">B3: <span id="b3f"></span> - <span id="b3t"></span> </span></p>
+      <p><span class="reading">C1: <span id="c1f"></span> - <span id="c1t"></span> </span></p>
+      <p><span class="reading">C2: <span id="c2f"></span> - <span id="c2t"></span> </span></p> 
+      <p><span class="reading">C3: <span id="c3f"></span> - <span id="c3t"></span> </span></p> 
+      <table>
+        <tr>
+          <td> 4 </td>
+          <td><span id="a4f"></span> - <span id="a4t"></span></td>
+          <td><span id="b4f"></span> - <span id="b4t"></span></td>
+          <td><span id="c4f"></span> - <span id="c4t"></span></td>
+          <td><span id="d4f"></span> - <span id="d4t"></span></td>
+        </tr>  
+        <tr>
+          <td> 3 </td>
+          <td><span id="a3f"></span> - <span id="a3t"></span></td>
+          <td><span id="b3f"></span> - <span id="b3t"></span></td>
+          <td><span id="c3f"></span> - <span id="c3t"></span></td>
+          <td><span id="d3f"></span> - <span id="d3t"></span></td>
+        </tr>
+        <tr>
+          <td> 2 </td>
+          <td><span id="a2f"></span> - <span id="a2t"></span></td>
+          <td><span id="b2f"></span> - <span id="b2t"></span></td>
+          <td><span id="c2f"></span> - <span id="c2t"></span></td>
+          <td><span id="d2f"></span> - <span id="d2t"></span></td>
+        </tr>
+        <tr>
+          <td> 1 </td>
+          <td><span id="a1f"></span> - <span id="a1t"></span></td>
+          <td><span id="b1f"></span> - <span id="b1t"></span></td>
+          <td><span id="c1f"></span> - <span id="c1t"></span></td>
+          <td><span id="d1f"></span> - <span id="d1t"></span></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>      A      </td>
+          <td>      B      </td>
+          <td>      C      </td>
+          <td>      D      </td>
+        </tr>
+      </table>   
+    </div> 
+    </div>
+  </div>
+  <script src="script.js"></script> 
+</body>
+-->

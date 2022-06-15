@@ -13,8 +13,8 @@
 #include <Arduino_JSON.h>
 #include "SPIFFS.h"
 
-const char* ssid = "CARVAJAL";
-const char* password = "catalan1234";
+const char* ssid = "XXXXXXX";
+const char* password = "XXXXXXX";
 
 AsyncWebServer server(80);
 AsyncEventSource events("/events");
@@ -391,19 +391,6 @@ void CalibracionInalambrica(){
   if(lectura_color_trase_C < Min_Calibracion_tras){ // Valor inicial 1000
     Min_Calibracion_tras = lectura_color_trase_C;
     }  
-
-  //int canales[16] = {canal_0,canal_1,canal_2,canal_3,canal_4,canal_5,canal_6,canal_7,canal_8,canal_9,canal_10,canal_11,canal_12,canal_13,canal_14,canal_15};
-  /*int suma = 0, promedio = 0;
-  suma = canal_0+canal_1+canal_2+canal_3+canal_4+canal_5+canal_6+canal_7+canal_8+canal_9+canal_10+canal_11+canal_12+canal_13+canal_14+canal_15;
-  promedio = suma/16;
-  float Const = 0.24421; //0.244200311
-  lectura_Calibracion = Const*promedio;
-  if(lectura_Calibracion > Max_Calibracion){ // Valor inicial 0
-    Max_Calibracion = lectura_Calibracion;
-    }
-  if(lectura_Calibracion < Min_Calibracion){ // Valor inicial 1000
-    Min_Calibracion = lectura_Calibracion;
-    }*/
 }
 void Colores(int PWMBlancoMax_F,int PWMBlancoMax_T, int PWMNegroMin_F, int PWMNegroMin_T, int PWMGrisMin_F, int PWMGrisMax_F,int PWMGrisMin_T, int PWMGrisMax_T)
 {
@@ -667,49 +654,32 @@ String getEstadoRobotUno(){ // Carro 1
 void EnvioDatos()
 {
   if ((millis() - lastTimeDistancia) > distanciaDelay) {
-    //Enviamos los datos al servidor Web.
-    //De "temperature_reading" debo cambiar la variable en el .js
     events.send(getCalibracion().c_str(),"lectura_calibracion",millis());
     lastTimeDistancia = millis();
   }
 
   if ((millis() - lastTimeDistanciaR1) > distanciaDelayR1) {
-    //Enviamos los datos al servidor Web.
-    //De "temperature_reading" debo cambiar la variable en el .js
     events.send(getEstadoR1().c_str(),"lectura_estadoR1",millis());
     lastTimeDistanciaR1 = millis();
   }
 
   if ((millis() - lastTimeDistanciaR2) > distanciaDelayR2) {
-    //Enviamos los datos al servidor Web.
-    //De "temperature_reading" debo cambiar la variable en el .js
     events.send(getEstadoR2().c_str(),"lectura_estadoR2",millis());
     lastTimeDistanciaR2 = millis();
   }
 }
 void EnvioDatos3x3(){
   if ((millis() - lastTimeDistanciaPOS) > distanciaDelayPOS) {
-    //Enviamos los datos al servidor Web.
-    //De "temperature_reading" debo cambiar la variable en el .js
     events.send(getEstadoPOS3x3().c_str(),"lectura_estadoPOS3x3",millis());
     lastTimeDistanciaPOS = millis();
   }
 }
 void EnvioDatos4x4(){  
   if ((millis() - lastTimeDistanciaPOS) > distanciaDelayPOS) {
-    //Enviamos los datos al servidor Web.
-    //De "temperature_reading" debo cambiar la variable en el .js
     events.send(getEstadoRobotUno().c_str(),"lectura_estadoRobotuno",millis());
     lastTimeDistanciaPOS = millis();
   }
 }
-//----------------------------------------------------------------------------------------
-// void SensoDistancia(){
-//   if (distanciaMili < 81)
-//   {
-//     ControlPI(nuevaIzq, nuevaDer, 0.05, 0.0, Atras);
-//   }  
-// }
 void Avance1(){
   SENSOR_DISTANCIA();
   RizqAux.write(0);
@@ -746,13 +716,10 @@ void Avance1(){
 void Avance2(float DistRequerida, int Escena){
   if (Escena == 3) // Comunicación 3x3
   {
-    EnvioDatos(); //Envio de datos al sevidor
-    //EnvioDatos3x3();
-    //EnvioDatos4x4();
+    EnvioDatos();
     SENSOR_DISTANCIA();
     RizqAux.write(0);
     RderAux.write(0);
-    // DistRequerida == 27.00
     while (Dist_recAux <= DistRequerida /*&& distanciaMili  > 120 -27.00 - 0.16*/)
     {
       nuevaDer = Rder.read();
@@ -765,15 +732,11 @@ void Avance2(float DistRequerida, int Escena){
       SENSOR_DISTANCIA();
       Datos();
       EnvioDatos();  
-      //EnvioDatos3x3();
-      //EnvioDatos4x4();  
     }
     Dist = Dist + Dist_recAux;//Dist_rec;
     Dist_rec = 0;
     Dist_recAux = 0;
     EnvioDatos();
-    //EnvioDatos3x3();
-    //EnvioDatos4x4();
     motor1.freno();motor2.freno();
     delay(2000);
   }
@@ -781,8 +744,6 @@ void Avance2(float DistRequerida, int Escena){
   {    
     j = j+1;
     EnvioDatos(); //Envio de datos al sevidor
-    //EnvioDatos3x3();
-    //EnvioDatos4x4();
     SENSOR_DISTANCIA();
     RizqAux.write(0);
     RderAux.write(0);
@@ -799,15 +760,11 @@ void Avance2(float DistRequerida, int Escena){
       SENSOR_DISTANCIA();
       Datos();
       EnvioDatos();  
-      //EnvioDatos3x3();
-      //EnvioDatos4x4();  
     }
     Dist = Dist + Dist_recAux;//Dist_rec;
     Dist_rec = 0;
     Dist_recAux = 0;
     EnvioDatos();
-    //EnvioDatos3x3();
-    //EnvioDatos4x4();
     motor1.freno();motor2.freno();
     delay(2000);
   }  
@@ -815,11 +772,8 @@ void Avance2(float DistRequerida, int Escena){
 void Avance2giro(int DireccionGiro, int Escena/*, int DistMayoroMenor*/){
   if (Escena == 3) // Comunicación 3x3
   {
-    //Mayor == 1. Menor == 2
-    //Dist_rec = 0;
     EnvioDatos();
     EnvioDatos3x3();
-    //EnvioDatos4x4();
     RizqAux.write(0);
     RderAux.write(0);
     while (Dist_recAux < datoGiro - 40) // carro 1 co -40

@@ -263,8 +263,8 @@ void ControlPI(int pulsos_izq, int pulsos_der, double vel_lineal_d, double vel_a
       //D_vel = kdVel*vInput;
       //D_ang = kdAng*aInput;
       //Obtenemos la señal de control u = kp*e + kd*dedt + ki*eintegral
-      PID_vel = P_vel + I_vel - D_vel;
-      PID_ang = P_ang + I_ang - D_ang;
+      PID_vel = P_vel + I_vel;// - D_vel;
+      PID_ang = P_ang + I_ang;// - D_ang;
 
       Volt_R = PID_vel + PID_ang;
       Volt_L = PID_vel - PID_ang;

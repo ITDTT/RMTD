@@ -255,13 +255,13 @@ void ControlPI(int pulsos_izq, int pulsos_der, double vel_lineal_d, double vel_a
       I_vel += kiVel*P_vel; //I_vel = I_vel + kiVel*P_vel;
       I_ang += kiAng*P_ang; //I_ang = I_ang + kiAng*P_ang;
       //Acotamos el error integral para eliminar el "efecto windup".
-      if(I_vel > PWMmax) I_vel = PWMmax; else if(I_vel < PWMmin) I_vel = PWMmin;
-      if(I_ang > PWMmax) I_ang = PWMmax; else if(I_ang < PWMmin) I_ang = PWMmin;
+      //if(I_vel > PWMmax) I_vel = PWMmax; else if(I_vel < PWMmin) I_vel = PWMmin;
+      //if(I_ang > PWMmax) I_ang = PWMmax; else if(I_ang < PWMmin) I_ang = PWMmin;
       //Calculo derivativo:
-      double vInput = (vel_lineal - Last_vel);
-      double aInput = (vel_angular- Last_ang);
-      D_vel = kdVel*vInput;
-      D_ang = kdAng*aInput;
+      //double vInput = (vel_lineal - Last_vel);
+      //double aInput = (vel_angular- Last_ang);
+      //D_vel = kdVel*vInput;
+      //D_ang = kdAng*aInput;
       //Obtenemos la señal de control u = kp*e + kd*dedt + ki*eintegral
       PID_vel = P_vel + I_vel - D_vel;
       PID_ang = P_ang + I_ang - D_ang;
